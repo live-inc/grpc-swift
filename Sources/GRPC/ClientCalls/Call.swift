@@ -158,6 +158,15 @@ public class Call<Request, Response> {
       }
     }
   }
+
+  public func getPendingRequests() -> [GRPCClientRequestPart<Request>] {
+    switch self._state {
+    case .idle:
+      return []
+    case let .invoked(transport):
+      return transport.pendingRequests
+    }
+  }
 }
 
 extension Call {

@@ -47,6 +47,10 @@ public struct BidirectionalStreamingCall<
     return self.call.eventLoop
   }
 
+  public func getPendingRequests() -> [GRPCClientRequestPart<RequestPayload>] {
+    return self.call.getPendingRequests()
+  }
+
   /// Cancel this RPC if it hasn't already completed.
   public func cancel(promise: EventLoopPromise<Void>?) {
     self.call.cancel(promise: promise)

@@ -51,6 +51,9 @@ internal final class ClientTransport<Request, Response> {
   // have 3 parts.
   /// A buffer to store request parts and promises in before the channel has become active.
   private var writeBuffer = MarkedCircularBuffer<RequestAndPromise>(initialCapacity: 4)
+  internal var pendingRequests: [GRPCClientRequestPart<Request>] {
+    return writeBuffer.map { $0.request }
+  }
 
   /// A request part and a promise.
   private struct RequestAndPromise {
